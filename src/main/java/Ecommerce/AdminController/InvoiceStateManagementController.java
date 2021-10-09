@@ -88,7 +88,7 @@ public class InvoiceStateManagementController {
 	}
 
 	@RequestMapping(value = {"quan-tri/chinh-sua-trang-thai-hoa-don/{id}", "quan-tri/chinh-sua-trang-thai-hoa-don/{id}/{message}"}, method = RequestMethod.GET)
-	public ModelAndView UpdateCategory(HttpSession httpSession, @PathVariable BigDecimal id, @PathVariable(required = false) String message) {
+	public ModelAndView UpdateInvoiceState(HttpSession httpSession, @PathVariable BigDecimal id, @PathVariable(required = false) String message) {
 		if (id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-trang-thai-hoa-don");
 
@@ -111,7 +111,7 @@ public class InvoiceStateManagementController {
 	}
 	
 	@RequestMapping(value = "quan-tri/chinh-sua-trang-thai-hoa-don/{id}", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
-	public ModelAndView UpdateCategory(HttpSession httpSession, @ModelAttribute("category") InvoiceState invoiceState, 
+	public ModelAndView UpdateInvoiceState(HttpSession httpSession, @ModelAttribute("invoiceState") InvoiceState invoiceState, 
 			BindingResult bindingResult, InvoiceStateValidator invoiceStateValidator) {	
 		invoiceStateValidator.validate(invoiceState, bindingResult);
 		if (bindingResult.hasErrors()) {
@@ -128,7 +128,7 @@ public class InvoiceStateManagementController {
 	}
 
 	@RequestMapping(value = "quan-tri/xoa-trang-thai-hoa-don", method = RequestMethod.POST)
-	public ModelAndView DeleteCategory(HttpSession httpSession, @RequestParam(value = "id", required = true) BigDecimal id) {		
+	public ModelAndView DeleteInvoiceState(HttpSession httpSession, @RequestParam(value = "id", required = true) BigDecimal id) {		
 		if(id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-trang-thai-hoa-don");
 		
