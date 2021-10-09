@@ -5,5 +5,8 @@
 	<decorator name="admin" page="admin.jsp">
 		<pattern>/quan-tri/*</pattern>
 	</decorator>
+	<decorator name="system" page="system.jsp">
+		<pattern>/he-thong/*</pattern>
+	</decorator>
 	<decorator name="no" page=""></decorator>
 </decorators>

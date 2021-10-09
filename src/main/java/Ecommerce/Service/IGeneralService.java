@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import Ecommerce.DTO.Analyst;
 
 @Service
-interface IGeneralService {
+public interface IGeneralService {
 	@Autowired
 
 	Analyst GetAnalyst();
