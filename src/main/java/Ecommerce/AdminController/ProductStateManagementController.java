@@ -88,7 +88,7 @@ public class ProductStateManagementController {
 	}
 
 	@RequestMapping(value = {"quan-tri/chinh-sua-trang-thai-san-pham/{id}", "quan-tri/chinh-sua-trang-thai-san-pham/{id}/{message}"}, method = RequestMethod.GET)
-	public ModelAndView UpdateCategory(HttpSession httpSession, @PathVariable BigDecimal id, @PathVariable(required = false) String message) {
+	public ModelAndView UpdateProductState(HttpSession httpSession, @PathVariable BigDecimal id, @PathVariable(required = false) String message) {
 		if (id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-trang-thai-san-pham");
 
@@ -111,7 +111,7 @@ public class ProductStateManagementController {
 	}
 	
 	@RequestMapping(value = "quan-tri/chinh-sua-trang-thai-san-pham/{id}", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
-	public ModelAndView UpdateCategory(HttpSession httpSession, @ModelAttribute("category") ProductState productState, 
+	public ModelAndView UpdateProductState(HttpSession httpSession, @ModelAttribute("productState") ProductState productState, 
 			BindingResult bindingResult, ProductStateValidator productStateValidator) {	
 		productStateValidator.validate(productState, bindingResult);
 		if (bindingResult.hasErrors()) {
@@ -128,7 +128,7 @@ public class ProductStateManagementController {
 	}
 
 	@RequestMapping(value = "quan-tri/xoa-trang-thai-san-pham", method = RequestMethod.POST)
-	public ModelAndView DeleteCategory(HttpSession httpSession, @RequestParam(value = "id", required = true) BigDecimal id) {		
+	public ModelAndView DeleteProductState(HttpSession httpSession, @RequestParam(value = "id", required = true) BigDecimal id) {		
 		if(id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-trang-thai-san-pham");
 		
