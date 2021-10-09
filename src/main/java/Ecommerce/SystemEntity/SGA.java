@@ -2,7 +2,7 @@ package Ecommerce.SystemEntity;
 
 import java.math.BigDecimal;
 
-public class SGA {
+public class Sga {
 	private String name;
 	private BigDecimal value;
 	private BigDecimal con_id;
@@ -31,14 +31,14 @@ public class SGA {
 		this.con_id = con_id;
 	}
 
-	public SGA(String name, BigDecimal value, BigDecimal con_id) {
+	public Sga(String name, BigDecimal value, BigDecimal con_id) {
 		super();
 		this.name = name;
 		this.value = value;
 		this.con_id = con_id;
 	}
 
-	public SGA() {
+	public Sga() {
 		super();
 	}
 }

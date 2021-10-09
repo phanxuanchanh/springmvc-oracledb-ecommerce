@@ -9,20 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import Ecommerce.SystemEntity.Sga;
-import Ecommerce.SystemEntity.SgaMapper;
+import Ecommerce.SystemEntity.Dba_User;
+import Ecommerce.SystemEntity.Dba_UserMapper;
 
 @SuppressWarnings("restriction")
 @Repository
-public class SgaDAO {
+public class Dba_UserDAO {
 	@Autowired
 	@Resource(name = "jdbcTemplate2")
 	private JdbcTemplate jdbcTemplate;
 	
-	public List<Sga> GetSgas() {
-		List<Sga> sgas = new ArrayList<Sga>();
-		String query = "Select * from v$sga";
-		sgas = jdbcTemplate.query(query, new SgaMapper());
-		return sgas;
+	public List<Dba_User> getDba_Users() {
+		List<Dba_User> dba_users = new ArrayList<Dba_User>();
+		String query = "Select * from dba_users";
+		dba_users = jdbcTemplate.query(query, new Dba_UserMapper());
+		return dba_users;
 	}
 }

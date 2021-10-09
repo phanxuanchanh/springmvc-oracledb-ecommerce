@@ -1,5 +1,5 @@
 package Ecommerce.SystemEntity;
 
-public class PGA {
+public class Pga {
 
 }

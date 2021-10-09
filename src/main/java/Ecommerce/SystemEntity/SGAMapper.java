@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class SGAMapper implements RowMapper<SGA> {
+public class SgaMapper implements RowMapper<Sga> {
 
-	public SGA mapRow(ResultSet rs, int rowNum) throws SQLException {
-		SGA sga = new SGA(rs.getString("name"), rs.getBigDecimal("value"), rs.getBigDecimal("con_id"));
+	public Sga mapRow(ResultSet rs, int rowNum) throws SQLException {
+		Sga sga = new Sga(rs.getString("name"), rs.getBigDecimal("value"), rs.getBigDecimal("con_id"));
 		return sga;
 	}
 }

@@ -5,15 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import Ecommerce.SystemDAO.SGADAO;
-import Ecommerce.SystemEntity.SGA;
+import Ecommerce.SystemDAO.SgaDAO;
+import Ecommerce.SystemEntity.Sga;
 
 @Service
-public class SGAServiceImpl implements ISGAService {
+public class SgaServiceImpl implements ISgaService {
 	@Autowired
-	private SGADAO sgaDao;
+	private SgaDAO sgaDao;
 
-	public List<SGA> GetSGAs() {
-		return sgaDao.GetSGAs();
+	public List<Sga> GetSgas() {
+		return sgaDao.GetSgas();
 	}
 }
