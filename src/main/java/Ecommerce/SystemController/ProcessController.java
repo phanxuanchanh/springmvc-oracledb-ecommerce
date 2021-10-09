@@ -17,7 +17,7 @@ public class ProcessController {
 	private ProcessServiceImpl processServiceImpl;
 	
 	@RequestMapping(value = "he-thong/v$process", method = RequestMethod.GET)
-	public ModelAndView SGAList(HttpSession httpSession, @PathVariable(required = false) String message) {
+	public ModelAndView ProcessList(HttpSession httpSession, @PathVariable(required = false) String message) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/process-list");
 		modelAndView.addObject("v$process", processServiceImpl.GetProcesses());
