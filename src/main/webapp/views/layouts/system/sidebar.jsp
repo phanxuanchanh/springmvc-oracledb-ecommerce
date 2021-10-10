@@ -65,14 +65,14 @@
 	
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"
-		href="<c:url value="/quan-tri/danh-sach-san-pham"></c:url>"> <i
-			class="fas fa-fw fa-book"></i> <span>Quản lý sản phẩm</span>
+		href="<c:url value="/he-thong/dba_users"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>DBA_USERS</span>
 	</a></li>
 	
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"
-		href="<c:url value="/quan-tri/danh-sach-hoa-don"></c:url>"> <i
-			class="fas fa-fw fa-book"></i> <span>Quản lý hóa đơn</span>
+		href="<c:url value="/he-thong/profiles"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>PROFILES</span>
 	</a></li>
 	
 	<!-- Nav Item - Book -->

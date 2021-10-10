@@ -5,13 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import Ecommerce.SystemEntity.Dba_User;
+import Ecommerce.SystemEntity.Profile;
 
 @Service
-public interface IDba_UserService {
+public interface IProfileService {
 	@Autowired
-
-	List<Dba_User> GetDba_Users();
-
-	Dba_User GetDba_User(String username);
+	
+	List<Profile> GetProfiles();
 }

@@ -15,7 +15,7 @@ public class Dba_UserMapper implements RowMapper<Dba_User> {
 				rs.getString("external_name"), rs.getString("password_versions"), rs.getString("editions_enabled"), 
 				rs.getString("authentication_type"), rs.getString("proxy_only_connect"), rs.getString("common"), 
 				rs.getTimestamp("last_login"), rs.getString("oracle_maintained"), rs.getString("inherited"), 
-				rs.getString("default_collation"), rs.getString("implicit"), rs.getString("all_sharp"), rs.getTimestamp("password_change_date"));
+				rs.getString("default_collation"), rs.getString("implicit"), rs.getString("all_shard"), rs.getTimestamp("password_change_date"));
 		return dba_user;
 	}
 }

@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import Ecommerce.SystemService.SgaServiceImpl;
+import Ecommerce.SystemService.ProfileServiceImpl;
 
 @Controller
-public class SgaController {
+public class ProfileController {
 	@Autowired
-	private SgaServiceImpl sgaServiceImpl;
+	private ProfileServiceImpl profileServiceImpl;
 	
-	@RequestMapping(value = "he-thong/v$sga", method = RequestMethod.GET)
-	public ModelAndView SgaList(HttpSession httpSession, @PathVariable(required = false) String message) {
+	@RequestMapping(value = "he-thong/profiles", method = RequestMethod.GET)
+	public ModelAndView ProcessList(HttpSession httpSession, @PathVariable(required = false) String message) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("system/sga-list");
-		modelAndView.addObject("v$sga", sgaServiceImpl.GetSgas());
+		modelAndView.setViewName("system/profile-list");
+		modelAndView.addObject("profiles", profileServiceImpl.GetProfiles());
 		return modelAndView;
 	}
 }
