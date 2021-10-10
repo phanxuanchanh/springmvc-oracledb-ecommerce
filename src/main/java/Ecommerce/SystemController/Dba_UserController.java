@@ -17,7 +17,7 @@ public class Dba_UserController {
 	@Autowired
 	private Dba_UserServiceImpl dba_UserServiceImpl;
 	
-	@RequestMapping(value = { "he-thong/dba_users", "he-thong/dba_users/{message}" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"he-thong/dba_users", "he-thong/dba_users/{message}"}, method = RequestMethod.GET)
 	public ModelAndView Dba_UserList(HttpSession httpSession, @PathVariable(required = false) String message) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/dba-user-list");
@@ -34,7 +34,7 @@ public class Dba_UserController {
 	}
 	
 	@RequestMapping(value = "he-thong/chi-tiet-tai-khoan-user/{username}", method = RequestMethod.GET)
-	public ModelAndView InvoiceStateDetail(HttpSession httpSession, @PathVariable String username) {
+	public ModelAndView Dba_UserDetail(HttpSession httpSession, @PathVariable String username) {
 		if (username == null)
 			return new ModelAndView("redirect:/he-thong/dba_users");
 

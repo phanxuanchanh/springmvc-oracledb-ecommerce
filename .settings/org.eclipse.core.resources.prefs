@@ -4,7 +4,9 @@ encoding//src/main/java/Ecommerce/AdminController/PaymentTypeManagementControlle
 encoding//src/main/java/Ecommerce/AdminController/ProductCategoryManagementController.java=UTF-8
 encoding//src/main/java/Ecommerce/AdminController/ProductStateManagementController.java=UTF-8
 encoding//src/main/java/Ecommerce/SystemController/Dba_UserController.java=UTF-8
+encoding//src/main/java/Ecommerce/SystemController/ProfileController.java=UTF-8
 encoding//src/main/java/Ecommerce/SystemController/SgaController.java=UTF-8
+encoding//src/main/java/Ecommerce/SystemValidator/ProfileInputValidator.java=UTF-8
 encoding//src/main/java/Ecommerce/Validator/InvoiceStateValidator.java=UTF-8
 encoding//src/main/java/Ecommerce/Validator/PaymentTypeValidator.java=UTF-8
 encoding//src/main/java/Ecommerce/Validator/ProductCategoryValidator.java=UTF-8

@@ -71,8 +71,8 @@
 	
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"
-		href="<c:url value="/he-thong/profiles"></c:url>"> <i
-			class="fas fa-fw fa-book"></i> <span>PROFILES</span>
+		href="<c:url value="/he-thong/dba_profiles"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>DBA_PROFILES</span>
 	</a></li>
 	
 	<!-- Nav Item - Book -->

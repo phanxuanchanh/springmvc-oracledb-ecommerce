@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import Ecommerce.SystemDAO.ProfileDAO;
+import Ecommerce.SystemDTO.ProfileInput;
 import Ecommerce.SystemEntity.Profile;
 
 @Service
@@ -15,5 +16,12 @@ public class ProfileServiceImpl implements IProfileService {
 	
 	public List<Profile> GetProfiles() {
 		return profileDAO.GetProfiles();
+	}
+
+	public boolean CreateProfile(ProfileInput profileInput) {
+		if(profileDAO.IsExistProfileByName(profileInput.getProfile_name()))
+			return false;
+		profileDAO.CreateProfile(profileInput);
+		return true;
 	}
 }
