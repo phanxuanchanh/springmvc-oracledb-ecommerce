@@ -24,7 +24,7 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.OracleDriver"></property>
 		<property name="url"
-			value="jdbc:oracle:thin:@192.168.56.1:1521:ORCL"></property>
+			value="jdbc:oracle:thin:@192.168.1.16:1521:ORCL"></property>
 		<property name="username" value="ThuongMaiDienTu"></property>
 		<property name="password" value="TMDT_123456789"></property>
 	</bean>
@@ -34,7 +34,7 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.OracleDriver"></property>
 		<property name="url"
-			value="jdbc:oracle:thin:@192.168.56.1:1521:ORCL"></property>
+			value="jdbc:oracle:thin:@192.168.1.16:1521:ORCL"></property>
 		<property name="username" value="sys as sysdba"></property>
 		<property name="password" value="PhanChanh2001"></property>
 	</bean>

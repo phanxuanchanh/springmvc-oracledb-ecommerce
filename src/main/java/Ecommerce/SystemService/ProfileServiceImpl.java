@@ -24,4 +24,20 @@ public class ProfileServiceImpl implements IProfileService {
 		profileDAO.CreateProfile(profileInput);
 		return true;
 	}
+
+	public boolean UpdateProfile(ProfileInput profileInput) {
+		if(profileDAO.IsExistProfileByName(profileInput.getProfile_name())) {
+			profileDAO.UpdateProfile(profileInput);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean DeleteProfile(String profileName) {
+		if(profileDAO.IsExistProfileByName(profileName)) {
+			profileDAO.DeleteProfile(profileName);
+			return true;
+		}
+		return false;
+	}
 }

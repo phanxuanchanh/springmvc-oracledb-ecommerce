@@ -6,10 +6,22 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	<h1 class="h3 mb-0 text-gray-800">Trang quản trị/Tạo mới Profile</h1>
-	<a href="#"
-		class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-		<i class="fas fa-download fa-sm text-white-50"></i> Tạo mới
-	</a>
+	<div class="row">
+		<div class="col">
+			<a href="#"
+				class="btn btn-sm btn-primary shadow-sm">
+				<i class="fas fa-download fa-sm text-white-50"></i> Tạo mới
+			</a>
+			<a href="<c:url value="/he-thong/chinh-sua-profile"></c:url>"
+				class="btn btn-sm btn-primary shadow-sm">
+				<i class="fas fa-download fa-sm text-white-50"></i> Chỉnh sửa
+			</a>
+			<a href="<c:url value="/he-thong/xoa-profile"></c:url>"
+				class="btn btn-sm btn-primary shadow-sm">
+				<i class="fas fa-download fa-sm text-white-50"></i> Xóa
+			</a>
+		</div>
+	</div>
 </div>
 
 <div class="row">

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import Ecommerce.SystemDTO.ProfileInput;
+import Ecommerce.SystemDTO.ProfileInput2;
 import Ecommerce.SystemService.ProfileServiceImpl;
+import Ecommerce.SystemValidator.ProfileInput2Validator;
 import Ecommerce.SystemValidator.ProfileInputValidator;
 
 @Controller
@@ -21,7 +23,7 @@ public class ProfileController {
 	private ProfileServiceImpl profileServiceImpl;
 	
 	@RequestMapping(value = "he-thong/dba_profiles", method = RequestMethod.GET)
-	public ModelAndView ProfileList(HttpSession httpSession, @PathVariable(required = false) String message) {
+	public ModelAndView ProfileList(HttpSession httpSession) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/profile-list");
 		modelAndView.addObject("profiles", profileServiceImpl.GetProfiles());
@@ -59,5 +61,71 @@ public class ProfileController {
 			return new ModelAndView("redirect:/he-thong/tao-moi-profile/add-success");
 		
 		return new ModelAndView("redirect:/he-thong/tao-moi-profile/add-failed");
+	}
+	
+	@RequestMapping(value = {"he-thong/chinh-sua-profile", "he-thong/chinh-sua-profile/{message}"}, method = RequestMethod.GET)
+	public ModelAndView UpdateProfile(HttpSession httpSession, @PathVariable(required = false) String message) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("system/update-profile");
+		modelAndView.addObject("profileInput", new ProfileInput());
+		if(message != null) {
+			if(message.equals("edit-success"))
+				modelAndView.addObject("state", "Chỉnh sửa thành công");
+			else if(message.equals("edit-failed"))
+				modelAndView.addObject("state", "Chỉnh sửa thất bại");
+			else 
+				modelAndView.addObject("state", "Không xác định được nội dung thông báo");
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "he-thong/chinh-sua-profile", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ModelAndView UpdateProfile(HttpSession httpSession, @ModelAttribute("profileInput") ProfileInput profileInput, 
+			BindingResult bindingResult, ProfileInputValidator profileInputValidator) {
+		profileInputValidator.validate(profileInput, bindingResult);
+		if (bindingResult.hasErrors()) {
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.setViewName("system/update-profile");
+			modelAndView.addObject("profileInput", profileInput);
+			return modelAndView;
+		}
+
+		if(profileServiceImpl.UpdateProfile(profileInput))
+			return new ModelAndView("redirect:/he-thong/chinh-sua-profile/edit-success");
+		
+		return new ModelAndView("redirect:/he-thong/chinh-sua-profile/edit-failed");
+	}
+	
+	@RequestMapping(value = {"he-thong/xoa-profile", "he-thong/xoa-profile/{message}"}, method = RequestMethod.GET)
+	public ModelAndView DeleteProfile(HttpSession httpSession, @PathVariable(required = false) String message) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("system/delete-profile");
+		modelAndView.addObject("profileInput2", new ProfileInput());
+		if(message != null) {
+			if(message.equals("delete-success"))
+				modelAndView.addObject("state", "Xóa thành công");
+			else if(message.equals("delete-failed"))
+				modelAndView.addObject("state", "Xóa thất bại");
+			else 
+				modelAndView.addObject("state", "Không xác định được nội dung thông báo");
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "he-thong/xoa-profile", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	public ModelAndView DeleteProfile(HttpSession httpSession, @ModelAttribute("profileInput2") ProfileInput2 profileInput2, 
+			BindingResult bindingResult, ProfileInput2Validator profileInput2Validator) {
+		profileInput2Validator.validate(profileInput2, bindingResult);
+		if (bindingResult.hasErrors()) {
+			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.setViewName("system/delete-profile");
+			modelAndView.addObject("profileInput2", profileInput2);
+			return modelAndView;
+		}
+
+		if(profileServiceImpl.DeleteProfile(profileInput2.getProfile_name()))
+			return new ModelAndView("redirect:/he-thong/xoa-profile/delete-success");
+		
+		return new ModelAndView("redirect:/he-thong/xoa-profile/delete-failed");
 	}
 }

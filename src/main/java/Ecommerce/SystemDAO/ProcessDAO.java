@@ -1,6 +1,5 @@
 package Ecommerce.SystemDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,9 +19,18 @@ public class ProcessDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<Process> GetProcesses() {
-		List<Process> processes = new ArrayList<Process>();
-		String query = "Select * from v$process";
-		processes = jdbcTemplate.query(query, new ProcessMapper());
-		return processes;
+		String query = "Select addr, pid, sosid, spid, stid, execution_type, pname, username from v$process";
+		return jdbcTemplate.query(query, new ProcessMapper(false));
+	}
+	
+	public Process GetProcess(String addr) {
+		String query = "Select * from v$process where addr = ?";
+		return jdbcTemplate.queryForObject(query, new Object[] { addr }, new ProcessMapper(true));
+	}
+	
+	public boolean IsExistProcessByAddr(String addr) {
+		String query = "Select count(*) from v$process where addr = ?";
+		int count = jdbcTemplate.queryForObject(query, new Object[] { addr }, Integer.class);
+		return (count > 0);
 	}
 }

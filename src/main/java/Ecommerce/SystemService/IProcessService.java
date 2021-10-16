@@ -12,4 +12,6 @@ public interface IProcessService {
 	@Autowired
 	
 	List<Process> GetProcesses();
+	
+	Process GetProcess(String addr);
 }

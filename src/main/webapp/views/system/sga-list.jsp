@@ -6,23 +6,6 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	<h1 class="h3 mb-0 text-gray-800">Trang quản trị/Thông tin SGA (v$sga)</h1>
-	<a href="#"
-		class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-		<i class="fas fa-download fa-sm text-white-50"></i> Tạo mới
-	</a>
-</div>
-
-<div class="row">
-	<div class="col-lg-12 mb-4">
-		<c:if test="${ state != null }">
-			<div class="card bg-secondary text-white shadow">
-				<div class="card-body">
-					${ state }
-					<div><a class="text-white-50 small" href="<c:url value="/he-thong/v$sga"></c:url>">Tắt thông báo này</a></div>
-				</div>
-			</div>
-		</c:if>
-	</div>
 </div>
 
 <div class="card shadow mb-4">
@@ -32,9 +15,6 @@
 	<div class="card-body">
 		<div class="table-responsive">
 			<div id="dataTable" class="dataTables_wrapper dt-bootstrap4">
-
-
-
 				<div class="row">
 					<div class="col-sm-12">
 						<table class="table table-bordered dataTable" id="dataTable"

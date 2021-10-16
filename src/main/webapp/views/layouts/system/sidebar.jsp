@@ -44,6 +44,12 @@
 		href="<c:url value="#"></c:url>"> <i
 			class="fas fa-fw fa-book"></i> <span>PGA</span>
 	</a></li>
+	
+	<!-- Nav Item - Book -->
+	<li class="nav-item"><a class="nav-link"
+		href="<c:url value="/he-thong/v$instance"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>V$INSTANCE</span>
+	</a></li>
 
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"
@@ -53,14 +59,32 @@
 
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"
-		href="<c:url value="/quan-tri/danh-sach-trang-thai-hoa-don"></c:url>"> <i
-			class="fas fa-fw fa-book"></i> <span>Quản lý TT hóa đơn</span>
+		href="<c:url value="/he-thong/v$session"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>V$SESSION</span>
+	</a></li>
+
+	<!-- Nav Item - Book -->
+	<li class="nav-item"><a class="nav-link"
+		href="<c:url value="/he-thong/dba_tables"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>DBA_TABLES</span>
 	</a></li>
 	
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"
-		href="<c:url value="/quan-tri/danh-sach-phuong-thuc-thanh-toan"></c:url>"> <i
-			class="fas fa-fw fa-book"></i> <span>Quản lý PT thanh toán</span>
+		href="<c:url value="/he-thong/dba_data_files"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>DBA_DATA_FILES</span>
+	</a></li>
+	
+	<!-- Nav Item - Book -->
+	<li class="nav-item"><a class="nav-link"
+		href="<c:url value="/he-thong/dba_tablespaces"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>DBA_TABLESPACES</span>
+	</a></li>
+	
+	<!-- Nav Item - Book -->
+	<li class="nav-item"><a class="nav-link"
+		href="<c:url value="/he-thong/dba_audit_policies"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>DBA_AUDIT_POLICIES</span>
 	</a></li>
 	
 	<!-- Nav Item - Book -->

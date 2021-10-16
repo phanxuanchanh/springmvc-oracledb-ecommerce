@@ -16,4 +16,10 @@ public class ProcessServiceImpl implements IProcessService {
 	public List<Process> GetProcesses() {
 		return processDAO.GetProcesses();
 	}
+
+	public Process GetProcess(String addr) {
+		if(processDAO.IsExistProcessByAddr(addr))
+			return processDAO.GetProcess(addr);
+		return null;
+	}
 }

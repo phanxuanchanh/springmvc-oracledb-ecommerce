@@ -255,4 +255,17 @@ public class Process {
 	public Process() {
 		super();
 	}
+
+	public Process(String addr, BigDecimal pid, String sosid, String spid, String stid, String execution_type,
+			String pname, String username) {
+		super();
+		this.addr = addr;
+		this.pid = pid;
+		this.sosid = sosid;
+		this.spid = spid;
+		this.stid = stid;
+		this.execution_type = execution_type;
+		this.pname = pname;
+		this.username = username;
+	}
 }

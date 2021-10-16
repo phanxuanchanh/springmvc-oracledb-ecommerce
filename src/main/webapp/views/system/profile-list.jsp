@@ -5,11 +5,24 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-	<h1 class="h3 mb-0 text-gray-800">Trang quản trị/Thông tin Profiles</h1>
-	<a href="<c:url value="/he-thong/tao-moi-profile"></c:url>"
-		class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-		<i class="fas fa-download fa-sm text-white-50"></i> Tạo mới
-	</a>
+	<h1 class="h3 mb-0 text-gray-800">Trang quản trị/Danh sách các Profile (dba_profiles)</h1>
+	<div class="row">
+		<div class="col">
+			<a href="<c:url value="/he-thong/tao-moi-profile"></c:url>"
+				class="btn btn-sm btn-primary shadow-sm">
+				<i class="fas fa-download fa-sm text-white-50"></i> Tạo mới
+			</a>
+			<a href="<c:url value="/he-thong/chinh-sua-profile"></c:url>"
+				class="btn btn-sm btn-primary shadow-sm">
+				<i class="fas fa-download fa-sm text-white-50"></i> Chỉnh sửa
+			</a>
+			<a href="<c:url value="/he-thong/xoa-profile"></c:url>"
+				class="btn btn-sm btn-primary shadow-sm">
+				<i class="fas fa-download fa-sm text-white-50"></i> Xóa
+			</a>
+		</div>
+	</div>
+
 </div>
 
 <div class="row">
@@ -27,7 +40,7 @@
 
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">Thông tin Profiles</h6>
+		<h6 class="m-0 font-weight-bold text-primary">Danh sách các Profile (dba_profiles)</h6>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">

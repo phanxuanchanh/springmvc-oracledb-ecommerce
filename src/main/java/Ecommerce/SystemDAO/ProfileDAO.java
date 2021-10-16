@@ -35,8 +35,21 @@ public class ProfileDAO {
 		jdbcTemplate.execute(query);
 	}
 	
+	public void UpdateProfile(ProfileInput profileInput) {
+		String query = String.format(
+				"Alter profile %s limit connect_time %s sessions_per_user %s failed_login_attempts %s password_lock_time %s",
+				profileInput.getProfile_name(), profileInput.getConnect_time(), profileInput.getSessions_per_user(), 
+				profileInput.getFailed_login_attempts(), profileInput.getPassword_lock_time());
+		jdbcTemplate.execute(query);
+	}
+	
+	public void DeleteProfile(String profileName) {
+		String query = String.format("Drop profile %s cascade", profileName);
+		jdbcTemplate.execute(query);		
+	}
+	
 	public boolean IsExistProfileByName(String profileName) {
-		String query = "Select count(*) from dba_profiles where profile = ?";
+		String query = "Select count(*) from dba_profiles where profile = upper(?)";
 		int count = jdbcTemplate.queryForObject(query, new Object[] { profileName }, Integer.class);
 		return (count > 0);
 	}

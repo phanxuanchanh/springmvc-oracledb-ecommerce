@@ -15,4 +15,8 @@ public interface IProfileService {
 	List<Profile> GetProfiles();
 	
 	boolean CreateProfile(ProfileInput profileInput);
+	
+	boolean UpdateProfile(ProfileInput profileInput);
+	
+	boolean DeleteProfile(String profileName);
 }
