@@ -1,6 +1,5 @@
 package Ecommerce.SystemDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import Ecommerce.SystemDTO.ProfileInput;
 import Ecommerce.SystemEntity.Profile;
 import Ecommerce.SystemEntity.ProfileMapper;
+import Ecommerce.SystemEntity.ProfileMapper2;
 
 @SuppressWarnings("restriction")
 @Repository
@@ -21,10 +21,13 @@ public class ProfileDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<Profile> GetProfiles(){
-		List<Profile> profiles = new ArrayList<Profile>();
 		String query = "Select * from dba_profiles";
-		profiles = jdbcTemplate.query(query, new ProfileMapper());
-		return profiles;
+		return jdbcTemplate.query(query, new ProfileMapper());
+	}
+	
+	public List<Profile> GetProfiles_Distinct(){
+		String query = "Select distinct profile from dba_profiles";
+		return jdbcTemplate.query(query, new ProfileMapper2());
 	}
 	
 	public void CreateProfile(ProfileInput profileInput) {

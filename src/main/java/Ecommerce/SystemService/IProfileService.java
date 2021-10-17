@@ -14,6 +14,8 @@ public interface IProfileService {
 	
 	List<Profile> GetProfiles();
 	
+	List<Profile> GetProfiles_Distinct();
+	
 	boolean CreateProfile(ProfileInput profileInput);
 	
 	boolean UpdateProfile(ProfileInput profileInput);

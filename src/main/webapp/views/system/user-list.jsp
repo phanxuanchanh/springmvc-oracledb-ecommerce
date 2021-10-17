@@ -12,6 +12,20 @@
 	</a>
 </div>
 
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+	<h1 class="h3 mb-0 text-gray-800"></h1>
+	<div class="row">
+		<div class="col">
+			<c:url var="post_url" value="/he-thong/dba_users"></c:url> 
+			<form:form method="GET" action="${ post_url }">
+				<input type="text" name="username_keyword" class="form-control bg-light border-0 small" style="border: 1px solid !important;"
+					placeholder="Tìm kiếm..." aria-label="Search" aria-describedby="basic-addon2">
+			</form:form>
+		</div>
+	</div>
+</div>
+
 <div class="row">
 	<div class="col-lg-12 mb-4">
 			<div class="card bg-danger text-white shadow">
@@ -99,12 +113,12 @@
 										<td>${ item.last_login }</td>
 										<td>
 											<c:url var="post_url" value="/he-thong/xoa-tai-khoan-user"></c:url> 
-											<form:form id="deleteDba_User${ item.username }" method="POST" action="${ post_url }">
+											<form:form id="deleteUser${ item.username }" method="POST" action="${ post_url }">
 												<input type="hidden" name="username" value="${ item.username }" />
 											</form:form>
+											<a class="btn btn-primary" href="<c:url value="/he-thong/chi-tiet-tai-khoan-user/${ item.username }"></c:url>">Chi tiết</a> |
 											<a class="btn btn-success" href="<c:url value="/he-thong/chinh-sua-tai-khoan-user/${ item.username }"></c:url>">Chỉnh sửa</a> | 
-											<a class="btn btn-primary" href="<c:url value="/he-thong/chi-tiet-tai-khoan-user/${ item.username }"></c:url>">Xem chi tiết</a> | 
-											<button type="submit" class="btn btn-danger" form="deleteDba_User${ item.username }">Xóa</button>
+											<button type="submit" class="btn btn-danger" form="deleteUser${ item.username }">Xóa</button>
 										</td>
 									</tr>
 								</c:forEach>

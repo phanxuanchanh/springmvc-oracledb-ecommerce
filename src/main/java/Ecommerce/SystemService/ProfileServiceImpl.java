@@ -40,4 +40,8 @@ public class ProfileServiceImpl implements IProfileService {
 		}
 		return false;
 	}
+
+	public List<Profile> GetProfiles_Distinct() {
+		return profileDAO.GetProfiles_Distinct();
+	}
 }

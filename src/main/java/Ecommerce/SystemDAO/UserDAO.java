@@ -1,6 +1,5 @@
 package Ecommerce.SystemDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import Ecommerce.SystemDTO.UserInput;
 import Ecommerce.SystemEntity.User;
 import Ecommerce.SystemEntity.UserMapper;
 
@@ -18,23 +18,43 @@ public class UserDAO {
 	@Autowired
 	@Resource(name = "jdbcTemplate2")
 	private JdbcTemplate jdbcTemplate;
-	
-	public List<User> GetDba_Users() {
-		List<User> dba_users = new ArrayList<User>();
+
+	public List<User> GetUsers() {
 		String query = "Select * from dba_users";
-		dba_users = jdbcTemplate.query(query, new UserMapper());
-		return dba_users;
+		return jdbcTemplate.query(query, new UserMapper());
 	}
 	
-	public User GetDba_User(String username) {
-		User dba_User = null;
+	public List<User> GetUsers_ByUsernameKeyword(String usernameKeyword) {
+		String query = "Select * from dba_users where username like upper(?)";
+		return jdbcTemplate.query(query, new Object[] { "%" + usernameKeyword + "%" }, new UserMapper());
+	}
+
+	public User GetUser(String username) {
 		String query = "Select * from dba_users where username = ?";
-		dba_User = jdbcTemplate.queryForObject(query, new Object[] { username }, new UserMapper());
-		return dba_User;
+		return jdbcTemplate.queryForObject(query, new Object[] { username }, new UserMapper());
+	}
+
+	public void CreateUser(UserInput userInput) {
+		String query = String.format("Create user %s identified by %s default tablespace %s quota %s on %s profile %s",
+				userInput.getUsername(), userInput.getPassword(), userInput.getTablespace(), userInput.getQuota(),
+				userInput.getTablespace(), userInput.getProfile());
+		jdbcTemplate.execute(query);
 	}
 	
-	public boolean IsExistDba_UserByUsername(String username) {
-		String query = "Select count(*) from dba_users where username = ?";
+	public void UpdateUser(UserInput userInput) {
+		String query = String.format("Alter user %s identified by %s default tablespace %s quota %s on %s profile %s",
+				userInput.getUsername(), userInput.getPassword(), userInput.getTablespace(), userInput.getQuota(),
+				userInput.getTablespace(), userInput.getProfile());
+		jdbcTemplate.execute(query);
+	}
+	
+	public void DeleteUser(String username) {
+		String query = String.format("Drop user %s cascade", username);
+		jdbcTemplate.execute(query);
+	}
+
+	public boolean IsExistUserByUsername(String username) {
+		String query = "Select count(*) from dba_users where username = upper(?)";
 		int count = jdbcTemplate.queryForObject(query, new Object[] { username }, Integer.class);
 		return (count > 0);
 	}

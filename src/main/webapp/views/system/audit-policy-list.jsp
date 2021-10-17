@@ -12,6 +12,10 @@
 				class="btn btn-sm btn-primary shadow-sm">
 				<i class="fas fa-download fa-sm text-white-50"></i> Tạo mới
 			</a>
+			<a href="<c:url value="/he-thong/dba_fga_audit_trail"></c:url>"
+				class="btn btn-sm btn-primary shadow-sm">
+				<i class="fas fa-download fa-sm text-white-50"></i> Xem quá trình ghi nhận audit
+			</a>
 		</div>
 	</div>
 </div>
