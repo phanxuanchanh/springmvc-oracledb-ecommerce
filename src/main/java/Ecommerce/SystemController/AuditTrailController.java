@@ -18,8 +18,18 @@ public class AuditTrailController {
 	
 	@RequestMapping(value = "he-thong/dba_fga_audit_trail", method = RequestMethod.GET)
 	public ModelAndView AuditTrailList(HttpSession httpSession, @RequestParam(value = "object_schema", required = false) String objectSchema) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/audit-trail-list");
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		if(objectSchema == null)
 			modelAndView.addObject("auditTrails", auditTrailServiceImpl.GetAuditTrails());
 		else 

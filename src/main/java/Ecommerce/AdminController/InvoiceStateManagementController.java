@@ -25,9 +25,19 @@ public class InvoiceStateManagementController {
 	
 	@RequestMapping(value = { "quan-tri/danh-sach-trang-thai-hoa-don", "quan-tri/danh-sach-trang-thai-hoa-don/{message}" }, method = RequestMethod.GET)
 	public ModelAndView InvoiceStateList(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/invoice-state-list");
 		modelAndView.addObject("invoiceStates", invoiceStateServiceImpl.GetInvoiceStates());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		if(message != null) {
 			if(message.equals("delete-success"))
 				modelAndView.addObject("state", "Xóa thành công");
@@ -41,6 +51,14 @@ public class InvoiceStateManagementController {
 
 	@RequestMapping(value = "quan-tri/chi-tiet-trang-thai-hoa-don/{id}", method = RequestMethod.GET)
 	public ModelAndView InvoiceStateDetail(HttpSession httpSession, @PathVariable BigDecimal id) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if (id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-trang-thai-hoa-don");
 
@@ -51,14 +69,26 @@ public class InvoiceStateManagementController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/invoice-state-detail");
 		modelAndView.addObject("invoiceState", invoiceState);
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = {"quan-tri/tao-moi-trang-thai-hoa-don", "quan-tri/tao-moi-trang-thai-hoa-don/{message}"}, method = RequestMethod.GET)
 	public ModelAndView CreateInvoiceState(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/create-invoice-state");
 		modelAndView.addObject("invoiceState", new InvoiceState());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		if(message != null) {
 			if(message.equals("add-success"))
 				modelAndView.addObject("state", "Thêm thành công");
@@ -73,11 +103,21 @@ public class InvoiceStateManagementController {
 	@RequestMapping(value = "quan-tri/tao-moi-trang-thai-hoa-don", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ModelAndView CreateInvoiceState(HttpSession httpSession, @ModelAttribute("invoiceState") InvoiceState invoiceState, 
 			BindingResult bindingResult, InvoiceStateValidator invoiceStateValidator) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		invoiceStateValidator.validate(invoiceState, bindingResult);
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("admin/create-invoice-state");
 			modelAndView.addObject("invoiceState", invoiceState);
+			String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+			modelAndView.addObject("adminUsername", adminUsername);
 			return modelAndView;
 		}
 
@@ -89,6 +129,14 @@ public class InvoiceStateManagementController {
 
 	@RequestMapping(value = {"quan-tri/chinh-sua-trang-thai-hoa-don/{id}", "quan-tri/chinh-sua-trang-thai-hoa-don/{id}/{message}"}, method = RequestMethod.GET)
 	public ModelAndView UpdateInvoiceState(HttpSession httpSession, @PathVariable BigDecimal id, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if (id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-trang-thai-hoa-don");
 
@@ -99,6 +147,8 @@ public class InvoiceStateManagementController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/update-invoice-state");
 		modelAndView.addObject("invoiceState", invoiceState);
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		if(message != null) {
 			if(message.equals("edit-success"))
 				modelAndView.addObject("state", "Chỉnh sửa thành công");
@@ -113,11 +163,21 @@ public class InvoiceStateManagementController {
 	@RequestMapping(value = "quan-tri/chinh-sua-trang-thai-hoa-don/{id}", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ModelAndView UpdateInvoiceState(HttpSession httpSession, @ModelAttribute("invoiceState") InvoiceState invoiceState, 
 			BindingResult bindingResult, InvoiceStateValidator invoiceStateValidator) {	
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		invoiceStateValidator.validate(invoiceState, bindingResult);
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("admin/update-invoice-state");
 			modelAndView.addObject("invoiceState", invoiceState);
+			String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+			modelAndView.addObject("adminUsername", adminUsername);
 			return modelAndView;
 		}
 
@@ -129,6 +189,14 @@ public class InvoiceStateManagementController {
 
 	@RequestMapping(value = "quan-tri/xoa-trang-thai-hoa-don", method = RequestMethod.POST)
 	public ModelAndView DeleteInvoiceState(HttpSession httpSession, @RequestParam(value = "id", required = true) BigDecimal id) {		
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if(id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-trang-thai-hoa-don");
 		

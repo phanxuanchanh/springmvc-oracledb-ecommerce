@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import Ecommerce.SystemDAO.UserDAO;
 import Ecommerce.SystemDTO.UserInput;
+import Ecommerce.SystemDTO.UserPermissionForm;
 import Ecommerce.SystemEntity.User;
 
 @Service
@@ -49,5 +50,21 @@ public class UserServiceImpl implements IUserService {
 
 	public List<User> GetUsers_ByUsernameKeyword(String usernameKeyword) {
 		return userDAO.GetUsers_ByUsernameKeyword(usernameKeyword);
+	}
+
+	public boolean GrantPermissions(UserPermissionForm userPermissionForm) {
+		if(userDAO.IsExistUserByUsername(userPermissionForm.getUsername())) {
+			userDAO.GrantPermissions(userPermissionForm);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean RevokePermissions(UserPermissionForm userPermissionForm) {
+		if(userDAO.IsExistUserByUsername(userPermissionForm.getUsername())) {
+			userDAO.RevokePermissions(userPermissionForm);
+			return true;
+		}
+		return false;
 	}
 }

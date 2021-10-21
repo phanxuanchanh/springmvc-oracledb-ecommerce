@@ -22,14 +22,14 @@ public class CustomerDAO {
 	
 	public List<Customer> GetCustomers() {
 		List<Customer> customers = new ArrayList<Customer>();
-		String query = "Select * from ThuongMaiDienTu.Customers";
+		String query = "Select * from ThuongMaiDienTu_Web.Customers";
 		customers = jdbcTemplate.query(query, new CustomerMapper());
 		return customers;
 	}
 
 	public Customer GetCustomer(int id) {
 		Customer customer = null;
-		String query = "Select * from ThuongMaiDienTu.Customers where Id = ?";
+		String query = "Select * from ThuongMaiDienTu_Web.Customers where Id = ?";
 		customer = jdbcTemplate.queryForObject(query, new Object[] { id }, new CustomerMapper());
 		return customer;
 	}
@@ -53,13 +53,13 @@ public class CustomerDAO {
 	}
 
 	public boolean DeleteCustomer(int id) {
-		String query = "Delete from Customer where Id = ?";
+		String query = "Delete from ThuongMaiDienTu_Web.Customer where Id = ?";
 		int affected = jdbcTemplate.update(query, new Object[] { id });
 		return (affected > 0);
 	}
 	
 	public int CountCustomer() {
-		String query = "Select count(*) from ThuongMaiDienTu.Customers";
+		String query = "Select count(*) from ThuongMaiDienTu_Web.Customers";
 		int count = jdbcTemplate.queryForObject(query, Integer.class);
 		return count;
 	}

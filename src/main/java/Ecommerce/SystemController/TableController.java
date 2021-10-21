@@ -23,16 +23,36 @@ public class TableController {
 	
 	@RequestMapping(value = "he-thong/dba_tables", method = RequestMethod.GET)
 	public ModelAndView TableList(HttpSession httpSession) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/table-list");
 		modelAndView.addObject("tables", tableServiceImpl.GetTables());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "he-thong/danh-sach-table-theo-user", method = RequestMethod.GET)
 	public ModelAndView TableListByOwner(HttpSession httpSession, @RequestParam(value = "owner", required = false) String owner) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/table-list-by-owner");
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		if(owner == null)
 			modelAndView.addObject("tables_byOwner", new ArrayList<TableOutput>());
 		else 
@@ -43,6 +63,14 @@ public class TableController {
 	
 	@RequestMapping(value = "he-thong/chi-tiet-table/{tablename}", method = RequestMethod.GET)
 	public ModelAndView TableDetail(HttpSession httpSession, @PathVariable String tablename) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if (tablename == null)
 			return new ModelAndView("redirect:/he-thong/dba_tables");
 
@@ -53,6 +81,8 @@ public class TableController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/table-detail");
 		modelAndView.addObject("table", table);
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		return modelAndView;
 	}
 }

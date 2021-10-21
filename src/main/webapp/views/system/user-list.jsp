@@ -30,7 +30,8 @@
 	<div class="col-lg-12 mb-4">
 			<div class="card bg-danger text-white shadow">
 				<div class="card-body">
-					Cảnh báo: Cần cẩn thận trong việc chỉnh sửa hoặc xóa user
+					Cảnh báo: Cần cẩn thận trong việc chỉnh sửa hoặc xóa user.<br/> 
+					Danh sách này đã ẩn các user hệ thống (thuộc default_tablespace SYSTEM và SYSAUX ), nếu bạn muốn xem thì hãy gõ tên usename vào ô tìm kiếm
 					<div>
 						<a class="text-white-50 small"
 							href="#">Thông báo quan trọng</a>
@@ -102,7 +103,7 @@
 								</tr>
 							</tfoot>
 							<tbody>
-								<c:forEach var="item" items="${ dba_users }">
+								<c:forEach var="item" items="${ users }">
 									<tr role="row">
 										<td>${ item.username }</td>
 										<td>${ item.account_status }</td>
@@ -118,6 +119,7 @@
 											</form:form>
 											<a class="btn btn-primary" href="<c:url value="/he-thong/chi-tiet-tai-khoan-user/${ item.username }"></c:url>">Chi tiết</a> |
 											<a class="btn btn-success" href="<c:url value="/he-thong/chinh-sua-tai-khoan-user/${ item.username }"></c:url>">Chỉnh sửa</a> | 
+											<a class="btn btn-success" href="<c:url value="/he-thong/gan-thu-hoi-quyen-tai-khoan-user/${ item.username }"></c:url>">Gán/TH quyền</a> | 
 											<button type="submit" class="btn btn-danger" form="deleteUser${ item.username }">Xóa</button>
 										</td>
 									</tr>

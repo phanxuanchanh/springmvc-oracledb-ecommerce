@@ -101,20 +101,14 @@
 	
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"
-		href="<c:url value="/quan-tri/danh-sach-nguoi-dung"></c:url>"> <i
-			class="fas fa-fw fa-book"></i> <span>Quản lý người dùng</span>
-	</a></li>
-	
-	<!-- Nav Item - Book -->
-	<li class="nav-item"><a class="nav-link"
-		href="<c:url value="/quan-tri/danh-sach-nguoi-quan-tri"></c:url>"> <i
-			class="fas fa-fw fa-book"></i> <span>Quản lý người quản trị</span>
+		href="<c:url value="/he-thong/dba_roles"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>DBA_ROLES</span>
 	</a></li>
 
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"
-		href="<c:url value="/quan-tri-he-thong/co-so-du-lieu"></c:url>"> <i class="fas fa-fw fa-book"></i>
-			<span>Quản lý hệ thống</span>
+		href="<c:url value="/quan-tri/tong-quan"></c:url>"> <i class="fas fa-fw fa-book"></i>
+			<span>Quản trị TMDT</span>
 	</a></li>
 
 	<!-- Divider -->

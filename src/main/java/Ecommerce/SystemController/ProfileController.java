@@ -24,17 +24,37 @@ public class ProfileController {
 	
 	@RequestMapping(value = "he-thong/dba_profiles", method = RequestMethod.GET)
 	public ModelAndView ProfileList(HttpSession httpSession) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/profile-list");
 		modelAndView.addObject("profiles", profileServiceImpl.GetProfiles());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = {"he-thong/tao-moi-profile", "he-thong/tao-moi-profile/{message}"}, method = RequestMethod.GET)
 	public ModelAndView CreateProfile(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/create-profile");
 		modelAndView.addObject("profileInput", new ProfileInput());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		if(message != null) {
 			if(message.equals("add-success"))
 				modelAndView.addObject("state", "Thêm thành công");
@@ -49,11 +69,21 @@ public class ProfileController {
 	@RequestMapping(value = "he-thong/tao-moi-profile", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ModelAndView CreateProfile(HttpSession httpSession, @ModelAttribute("profileInput") ProfileInput profileInput, 
 			BindingResult bindingResult, ProfileInputValidator profileInputValidator) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		profileInputValidator.validate(profileInput, bindingResult);
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("system/create-profile");
 			modelAndView.addObject("profileInput", profileInput);
+			String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+			modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 			return modelAndView;
 		}
 
@@ -65,9 +95,19 @@ public class ProfileController {
 	
 	@RequestMapping(value = {"he-thong/chinh-sua-profile", "he-thong/chinh-sua-profile/{message}"}, method = RequestMethod.GET)
 	public ModelAndView UpdateProfile(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/update-profile");
 		modelAndView.addObject("profileInput", new ProfileInput());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		if(message != null) {
 			if(message.equals("edit-success"))
 				modelAndView.addObject("state", "Chỉnh sửa thành công");
@@ -82,11 +122,21 @@ public class ProfileController {
 	@RequestMapping(value = "he-thong/chinh-sua-profile", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ModelAndView UpdateProfile(HttpSession httpSession, @ModelAttribute("profileInput") ProfileInput profileInput, 
 			BindingResult bindingResult, ProfileInputValidator profileInputValidator) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		profileInputValidator.validate(profileInput, bindingResult);
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("system/update-profile");
 			modelAndView.addObject("profileInput", profileInput);
+			String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+			modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 			return modelAndView;
 		}
 
@@ -98,9 +148,19 @@ public class ProfileController {
 	
 	@RequestMapping(value = {"he-thong/xoa-profile", "he-thong/xoa-profile/{message}"}, method = RequestMethod.GET)
 	public ModelAndView DeleteProfile(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/delete-profile");
 		modelAndView.addObject("profileInput2", new ProfileInput());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		if(message != null) {
 			if(message.equals("delete-success"))
 				modelAndView.addObject("state", "Xóa thành công");
@@ -115,11 +175,21 @@ public class ProfileController {
 	@RequestMapping(value = "he-thong/xoa-profile", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ModelAndView DeleteProfile(HttpSession httpSession, @ModelAttribute("profileInput2") ProfileInput2 profileInput2, 
 			BindingResult bindingResult, ProfileInput2Validator profileInput2Validator) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		profileInput2Validator.validate(profileInput2, bindingResult);
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("system/delete-profile");
 			modelAndView.addObject("profileInput2", profileInput2);
+			String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+			modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 			return modelAndView;
 		}
 

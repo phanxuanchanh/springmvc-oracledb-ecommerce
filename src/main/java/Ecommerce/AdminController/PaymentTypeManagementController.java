@@ -25,9 +25,19 @@ public class PaymentTypeManagementController {
 	
 	@RequestMapping(value = { "quan-tri/danh-sach-phuong-thuc-thanh-toan", "quan-tri/danh-sach-phuong-thuc-thanh-toan/{message}" }, method = RequestMethod.GET)
 	public ModelAndView PaymentTypeList(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/payment-type-list");
 		modelAndView.addObject("paymentTypes", paymentTypeServiceImpl.GetPaymentTypes());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		if(message != null) {
 			if(message.equals("delete-success"))
 				modelAndView.addObject("state", "Xóa thành công");
@@ -41,6 +51,14 @@ public class PaymentTypeManagementController {
 
 	@RequestMapping(value = "quan-tri/chi-tiet-phuong-thuc-thanh-toan/{id}", method = RequestMethod.GET)
 	public ModelAndView PaymentTypeDetail(HttpSession httpSession, @PathVariable BigDecimal id) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if (id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-phuong-thuc-thanh-toan");
 
@@ -51,14 +69,26 @@ public class PaymentTypeManagementController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/payment-type-detail");
 		modelAndView.addObject("paymentType", paymentType);
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = {"quan-tri/tao-moi-phuong-thuc-thanh-toan", "quan-tri/tao-moi-phuong-thuc-thanh-toan/{message}"}, method = RequestMethod.GET)
 	public ModelAndView CreatePaymentType(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/create-payment-type");
 		modelAndView.addObject("paymentType", new PaymentType());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		if(message != null) {
 			if(message.equals("add-success"))
 				modelAndView.addObject("state", "Thêm thành công");
@@ -73,11 +103,21 @@ public class PaymentTypeManagementController {
 	@RequestMapping(value = "quan-tri/tao-moi-phuong-thuc-thanh-toan", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ModelAndView CreatePaymentType(HttpSession httpSession, @ModelAttribute("paymentType") PaymentType paymentType, 
 			BindingResult bindingResult, PaymentTypeValidator paymentTypeValidator) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		paymentTypeValidator.validate(paymentType, bindingResult);
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("admin/create-payment-type");
 			modelAndView.addObject("paymentType", paymentType);
+			String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+			modelAndView.addObject("adminUsername", adminUsername);
 			return modelAndView;
 		}
 
@@ -89,6 +129,14 @@ public class PaymentTypeManagementController {
 
 	@RequestMapping(value = {"quan-tri/chinh-sua-phuong-thuc-thanh-toan/{id}", "quan-tri/chinh-sua-phuong-thuc-thanh-toan/{id}/{message}"}, method = RequestMethod.GET)
 	public ModelAndView UpdatePaymentType(HttpSession httpSession, @PathVariable BigDecimal id, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if (id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-phuong-thuc-thanh-toan");
 
@@ -99,6 +147,8 @@ public class PaymentTypeManagementController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/update-payment-type");
 		modelAndView.addObject("paymentType", paymentType);
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		if(message != null) {
 			if(message.equals("edit-success"))
 				modelAndView.addObject("state", "Chỉnh sửa thành công");
@@ -113,11 +163,21 @@ public class PaymentTypeManagementController {
 	@RequestMapping(value = "quan-tri/chinh-sua-phuong-thuc-thanh-toan/{id}", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ModelAndView UpdatePaymentType(HttpSession httpSession, @ModelAttribute("paymentType") PaymentType paymentType, 
 			BindingResult bindingResult, PaymentTypeValidator paymentTypeValidator) {	
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		paymentTypeValidator.validate(paymentType, bindingResult);
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("admin/update-payment-type");
 			modelAndView.addObject("paymentType", paymentType);
+			String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+			modelAndView.addObject("adminUsername", adminUsername);
 			return modelAndView;
 		}
 
@@ -129,6 +189,14 @@ public class PaymentTypeManagementController {
 
 	@RequestMapping(value = "quan-tri/xoa-phuong-thuc-thanh-toan", method = RequestMethod.POST)
 	public ModelAndView DeletePaymentType(HttpSession httpSession, @RequestParam(value = "id", required = true) BigDecimal id) {		
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if(id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-phuong-thuc-thanh-toan");
 		

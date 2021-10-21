@@ -22,9 +22,19 @@ public class SessionController {
 	
 	@RequestMapping(value = { "he-thong/v$session", "he-thong/v$session/{message}" }, method = RequestMethod.GET)
 	public ModelAndView SessionList(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/session-list");
 		modelAndView.addObject("sessions", sessionServiceImpl.GetSessions());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		if(message != null) {
 			if(message.equals("delete-success"))
 				modelAndView.addObject("state", "Hủy thành công");
@@ -38,6 +48,14 @@ public class SessionController {
 	
 	@RequestMapping(value = "he-thong/chi-tiet-session/{saddr}", method = RequestMethod.GET)
 	public ModelAndView SessionDetail(HttpSession httpSession, @PathVariable String saddr) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if (saddr == null)
 			return new ModelAndView("redirect:/he-thong/v$session");
 
@@ -48,20 +66,40 @@ public class SessionController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/session-detail");
 		modelAndView.addObject("session", session);
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "he-thong/cac-process-ung-voi-session-dang-dang-nhap", method = RequestMethod.GET)
 	public ModelAndView ProcessVsSessionList(HttpSession httpSession) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/process-vs-session-list");
 		modelAndView.addObject("processVsSessions", sessionServiceImpl.GetProcessVsSessions());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "he-thong/huy-session", method = RequestMethod.POST)
 	public ModelAndView DeleteSession(HttpSession httpSession, @RequestParam(value = "sid", required = true) BigDecimal sid, 
 			@RequestParam(value = "serial", required = true) BigDecimal serial) {		
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if(sid.intValue() <= 0 || serial.intValue() <= 0)
 			return new ModelAndView("redirect:/he-thong/v$session");
 		

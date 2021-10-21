@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import Ecommerce.SystemDTO.UserInput;
+import Ecommerce.SystemDTO.UserPermissionForm;
 import Ecommerce.SystemEntity.User;
 import Ecommerce.SystemEntity.UserMapper;
 
@@ -20,7 +21,7 @@ public class UserDAO {
 	private JdbcTemplate jdbcTemplate;
 
 	public List<User> GetUsers() {
-		String query = "Select * from dba_users";
+		String query = "Select * from dba_users where default_tablespace != 'SYSTEM' and default_tablespace != 'SYSAUX'";
 		return jdbcTemplate.query(query, new UserMapper());
 	}
 	
@@ -45,6 +46,16 @@ public class UserDAO {
 		String query = String.format("Alter user %s identified by %s default tablespace %s quota %s on %s profile %s",
 				userInput.getUsername(), userInput.getPassword(), userInput.getTablespace(), userInput.getQuota(),
 				userInput.getTablespace(), userInput.getProfile());
+		jdbcTemplate.execute(query);
+	}
+	
+	public void GrantPermissions(UserPermissionForm userPermissionForm) {
+		String query = String.format("Grant %s to %s", userPermissionForm.getPermissions(), userPermissionForm.getUsername());
+		jdbcTemplate.execute(query);
+	}
+	
+	public void RevokePermissions(UserPermissionForm userPermissionForm) {
+		String query = String.format("Revoke %s from %s", userPermissionForm.getPermissions(), userPermissionForm.getUsername());
 		jdbcTemplate.execute(query);
 	}
 	

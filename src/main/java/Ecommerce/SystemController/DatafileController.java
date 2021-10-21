@@ -23,16 +23,36 @@ public class DatafileController {
 	
 	@RequestMapping(value = "he-thong/dba_data_files", method = RequestMethod.GET)
 	public ModelAndView DatafileList(HttpSession httpSession) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/datafile-list");
 		modelAndView.addObject("datafiles", datafileServiceImpl.GetDatafiles());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "he-thong/danh-sach-datafile-theo-tablespace", method = RequestMethod.GET)
 	public ModelAndView DatafileByTablespaceList(HttpSession httpSession, @RequestParam(value = "tablespace_name", required = false) String tablespaceName) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/datafile-list-by-tablespace");
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		if(tablespaceName == null)
 			modelAndView.addObject("datafiles_byTablespace", new ArrayList<Datafile>());
 		else
@@ -43,6 +63,14 @@ public class DatafileController {
 	
 	@RequestMapping(value = "he-thong/chi-tiet-datafile/{fileId}", method = RequestMethod.GET)
 	public ModelAndView DatafileDetail(HttpSession httpSession, @PathVariable BigDecimal fileId) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if (fileId.intValue() <= 0)
 			return new ModelAndView("redirect:/he-thong/dba_data_files");
 
@@ -53,6 +81,8 @@ public class DatafileController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("system/datafile-detail");
 		modelAndView.addObject("datafile", datafile);
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername + "-> SYS [Oracle]");
 		return modelAndView;
 	}
 }

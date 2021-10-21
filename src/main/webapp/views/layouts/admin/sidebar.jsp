@@ -87,9 +87,14 @@
 			class="fas fa-fw fa-book"></i> <span>Quản lý người quản trị</span>
 	</a></li>
 
+	<li class="nav-item"><a class="nav-link"
+		href="<c:url value="/quan-tri/danh-sach-quyen-han"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>Quản lý quyền hạn</span>
+	</a></li>
+
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"
-		href="<c:url value="/quan-tri-he-thong/co-so-du-lieu"></c:url>"> <i class="fas fa-fw fa-book"></i>
+		href="<c:url value="/he-thong/v$sga"></c:url>"> <i class="fas fa-fw fa-book"></i>
 			<span>Quản lý hệ thống</span>
 	</a></li>
 

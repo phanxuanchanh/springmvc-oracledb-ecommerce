@@ -25,9 +25,19 @@ public class ProductCategoryManagementController {
 	
 	@RequestMapping(value = { "quan-tri/danh-sach-the-loai", "quan-tri/danh-sach-the-loai/{message}" }, method = RequestMethod.GET)
 	public ModelAndView ProductCategoryList(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/product-category-list");
 		modelAndView.addObject("productCategories", productCategoryServiceImpl.GetProductCategories());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		if(message != null) {
 			if(message.equals("delete-success"))
 				modelAndView.addObject("state", "Xóa thành công");
@@ -41,6 +51,14 @@ public class ProductCategoryManagementController {
 
 	@RequestMapping(value = "quan-tri/chi-tiet-the-loai/{id}", method = RequestMethod.GET)
 	public ModelAndView ProductCategoryDetail(HttpSession httpSession, @PathVariable BigDecimal id) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if (id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-the-loai");
 
@@ -51,14 +69,26 @@ public class ProductCategoryManagementController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/product-category-detail");
 		modelAndView.addObject("productCategory", productCategory);
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		return modelAndView;
 	}
 
 	@RequestMapping(value = {"quan-tri/tao-moi-the-loai", "quan-tri/tao-moi-the-loai/{message}"}, method = RequestMethod.GET)
 	public ModelAndView CreateProductCategory(HttpSession httpSession, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/create-product-category");
 		modelAndView.addObject("productCategory", new ProductCategory());
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		if(message != null) {
 			if(message.equals("add-success"))
 				modelAndView.addObject("state", "Thêm thành công");
@@ -73,11 +103,21 @@ public class ProductCategoryManagementController {
 	@RequestMapping(value = "quan-tri/tao-moi-the-loai", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ModelAndView CreateProductCategory(HttpSession httpSession, @ModelAttribute("productCategory") ProductCategory productCategory, 
 			BindingResult bindingResult, ProductCategoryValidator productCategoryValidator) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		productCategoryValidator.validate(productCategory, bindingResult);
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("admin/create-product-category");
 			modelAndView.addObject("productCategory", productCategory);
+			String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+			modelAndView.addObject("adminUsername", adminUsername);
 			return modelAndView;
 		}
 
@@ -89,6 +129,14 @@ public class ProductCategoryManagementController {
 
 	@RequestMapping(value = {"quan-tri/chinh-sua-the-loai/{id}", "quan-tri/chinh-sua-the-loai/{id}/{message}"}, method = RequestMethod.GET)
 	public ModelAndView UpdateCategory(HttpSession httpSession, @PathVariable BigDecimal id, @PathVariable(required = false) String message) {
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if (id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-the-loai");
 
@@ -99,6 +147,8 @@ public class ProductCategoryManagementController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/update-product-category");
 		modelAndView.addObject("productCategory", productCategory);
+		String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+		modelAndView.addObject("adminUsername", adminUsername);
 		if(message != null) {
 			if(message.equals("edit-success"))
 				modelAndView.addObject("state", "Chỉnh sửa thành công");
@@ -113,11 +163,21 @@ public class ProductCategoryManagementController {
 	@RequestMapping(value = "quan-tri/chinh-sua-the-loai/{id}", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public ModelAndView UpdateCategory(HttpSession httpSession, @ModelAttribute("category") ProductCategory productCategory, 
 			BindingResult bindingResult, ProductCategoryValidator productCategoryValidator) {	
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		productCategoryValidator.validate(productCategory, bindingResult);
 		if (bindingResult.hasErrors()) {
 			ModelAndView modelAndView = new ModelAndView();
 			modelAndView.setViewName("admin/update-product-category");
 			modelAndView.addObject("productCategory", productCategory);
+			String adminUsername = loginState.replace("logged:true;username:", "").replace(";role:Admin", "");
+			modelAndView.addObject("adminUsername", adminUsername);
 			return modelAndView;
 		}
 
@@ -129,6 +189,14 @@ public class ProductCategoryManagementController {
 
 	@RequestMapping(value = "quan-tri/xoa-the-loai", method = RequestMethod.POST)
 	public ModelAndView DeleteCategory(HttpSession httpSession, @RequestParam(value = "id", required = true) BigDecimal id) {		
+		Object obj = httpSession.getAttribute("loginState");
+		if(obj == null)
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
+		String loginState = obj.toString();
+		if(!loginState.matches("logged:true;username:([a-zA-Z0-9]{1,});role:Admin"))
+			return new ModelAndView("redirect:/tai-khoan-quan-tri/dang-nhap");
+		
 		if(id.intValue() <= 0)
 			return new ModelAndView("redirect:/quan-tri/danh-sach-the-loai");
 		
