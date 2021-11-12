@@ -8,17 +8,17 @@
 	<h1 class="h3 mb-0 text-gray-800">Trang quản trị/Danh sách sản phẩm</h1>
 	<div class="row">
 		<div class="col">
-			<a href="<c:url value="/quan-tri/tao-moi-san-pham"></c:url>"
-				class="btn btn-sm btn-primary shadow-sm">
-				<i class="fas fa-download fa-sm text-white-50"></i> Tạo mới
-			</a>
-			<a href="<c:url value="/quan-tri/xuat-danh-sach-san-pham-xlsx"></c:url>"
+			<a href="<c:url value="/quan-tri/xuat-danh-sach-hoa-don-xlsx"></c:url>"
 				class="btn btn-sm btn-primary shadow-sm">
 				<i class="fas fa-download fa-sm text-white-50"></i> Xuất XLSX
 			</a>
-			<a href="<c:url value="/quan-tri/xuat-danh-sach-san-pham-csv"></c:url>"
+			<a href="<c:url value="/quan-tri/xuat-danh-sach-hoa-don-csv"></c:url>"
 				class="btn btn-sm btn-primary shadow-sm">
 				<i class="fas fa-download fa-sm text-white-50"></i> Xuất CSV
+			</a>
+			<a href="<c:url value="/quan-tri/cac-chuc-nang-hoa-don-chung"></c:url>"
+				class="btn btn-sm btn-primary shadow-sm">
+				<i class="fas fa-download fa-sm text-white-50"></i> Chức năng chung cho hóa đơn
 			</a>
 		</div>
 	</div>
@@ -30,7 +30,7 @@
 			<div class="card bg-secondary text-white shadow">
 				<div class="card-body">
 					${ state }
-					<div><a class="text-white-50 small" href="<c:url value="/quan-tri/danh-sach-san-pham"></c:url>">Tắt thông báo này</a></div>
+					<div><a class="text-white-50 small" href="<c:url value="/quan-tri/danh-sach-hoa-don"></c:url>">Tắt thông báo này</a></div>
 				</div>
 			</div>
 		</c:if>
@@ -39,7 +39,7 @@
 
 <div class="card shadow mb-4">
 	<div class="card-header py-3">
-		<h6 class="m-0 font-weight-bold text-primary">Danh sách sản phẩm</h6>
+		<h6 class="m-0 font-weight-bold text-primary">Danh sách hóa đơn</h6>
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
@@ -53,41 +53,43 @@
 							<thead>
 								<tr role="row">
 									<th class="sorting" tabindex="0" aria-controls="dataTable"
-										rowspan="1" colspan="1" aria-sort="ascending">ID sản phẩm</th>
+										rowspan="1" colspan="1" aria-sort="ascending">ID hóa đơn</th>
 									<th class="sorting" tabindex="0" aria-controls="dataTable"
-										rowspan="1" colspan="1" aria-sort="ascending">Tên sản phẩm</th>
+										rowspan="1" colspan="1" aria-sort="ascending">ID khách hàng</th>
 									<th class="sorting" tabindex="0" aria-controls="dataTable"
-										rowspan="1" colspan="1" aria-sort="ascending">Giá</th>
+										rowspan="1" colspan="1" aria-sort="ascending">Ngày đặt hàng</th>
 									<th class="sorting" tabindex="0" aria-controls="dataTable"
-										rowspan="1" colspan="1" aria-sort="ascending">Số lượng</th>
+										rowspan="1" colspan="1" aria-sort="ascending">Ngày giao hàng</th>
+									<th class="sorting" tabindex="0" aria-controls="dataTable"
+										rowspan="1" colspan="1" aria-sort="ascending">Tổng tiền</th>
 									<th>Công cụ</th>
 								</tr>
 							</thead>
 							<tfoot>
 								<tr>
-									<th rowspan="1" colspan="1">ID sản phẩm</th>
-									<th rowspan="1" colspan="1">Tên sản phẩm</th>
-									<th rowspan="1" colspan="1">Giá</th>
-									<th rowspan="1" colspan="1">Số lượng</th>
+									<th rowspan="1" colspan="1">ID hóa đơn</th>
+									<th rowspan="1" colspan="1">ID khách hàng</th>
+									<th rowspan="1" colspan="1">Ngày đặt hàng</th>
+									<th rowspan="1" colspan="1">Ngày giao hàng</th>
+									<th rowspan="1" colspan="1">Tổng tiền</th>
 									<th rowspan="1" colspan="1">Công cụ</th>
 								</tr>
 							</tfoot>
 							<tbody>
-								<c:forEach var="item" items="${ products }">
+								<c:forEach var="item" items="${ invoices }">
 									<tr role="row">
 										<td>${ item.ID }</td>
-										<td>${ item.name }</td>
-										<td>${ item.price }</td>
-										<td>${ item.quanty }</td>
+										<td>${ item.customerId }</td>
+										<td>${ item.orderDate }</td>
+										<td>${ item.shipedDate }</td>
+										<td>${ item.totalMoney }</td>
 										<td>
-											<c:url var="post_url" value="/quan-tri/xoa-san-pham"></c:url> 
-											<form:form id="deleteProduct${ item.ID }" method="POST" action="${ post_url }">
+											<c:url var="post_url" value="/quan-tri/xoa-hoa-don"></c:url> 
+											<form:form id="deleteInvoice${ item.ID }" method="POST" action="${ post_url }">
 												<input type="hidden" name="id" value="${ item.ID }" />
-											</form:form>
-											<a class="btn btn-success" href="<c:url value="/quan-tri/chinh-sua-san-pham/${ item.ID }"></c:url>">Chỉnh sửa</a> | 
-											<a class="btn btn-success" href="<c:url value="/quan-tri/them-hinh-anh-cho-san-pham/${ item.ID }"></c:url>">Hình ảnh</a> | 
-											<a class="btn btn-primary" href="<c:url value="/quan-tri/chi-tiet-san-pham/${ item.ID }"></c:url>">Xem chi tiết</a> | 
-											<button type="submit" class="btn btn-danger" form="deleteProduct${ item.ID }">Xóa</button>
+											</form:form> 
+											<a class="btn btn-primary" href="<c:url value="/quan-tri/chi-tiet-hoa-don/${ item.ID }"></c:url>">Xem chi tiết</a> | 
+											<button type="submit" class="btn btn-danger" form="deleteInvoice${ item.ID }">Xóa</button>
 										</td>
 									</tr>
 								</c:forEach>

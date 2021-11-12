@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java/Ecommerce/AdminController/AccountRoleManagementController.java=UTF-8
 encoding//src/main/java/Ecommerce/AdminController/AdminManagementController.java=UTF-8
+encoding//src/main/java/Ecommerce/AdminController/InvoiceManagementController.java=UTF-8
 encoding//src/main/java/Ecommerce/AdminController/InvoiceStateManagementController.java=UTF-8
 encoding//src/main/java/Ecommerce/AdminController/PaymentTypeManagementController.java=UTF-8
 encoding//src/main/java/Ecommerce/AdminController/ProductCategoryManagementController.java=UTF-8

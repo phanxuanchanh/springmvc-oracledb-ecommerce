@@ -31,7 +31,7 @@ public class ProductDAO {
 	
 	public boolean CreateProduct(Product product) {
 		String query = "Insert into ThuongMaiDienTu_Web.Products(\"name\", \"description\", price, discount, quanty, productCategoryId, productStateId, supplierId, createAt, updateAt) "
-				+ "values(?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+				+ "values(?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
 		int affected = jdbcTemplate.update(query, new Object[] { product.getName(), product.getDescription(), product.getPrice(), product.getDiscount(), 
 				product.getQuanty(), product.getProductCategoryId(), product.getProductStateId(), product.getSupplierId() });
 		return (affected > 0);

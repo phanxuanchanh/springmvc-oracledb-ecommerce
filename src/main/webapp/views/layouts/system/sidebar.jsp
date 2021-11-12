@@ -50,6 +50,12 @@
 		href="<c:url value="/he-thong/v$instance"></c:url>"> <i
 			class="fas fa-fw fa-book"></i> <span>V$INSTANCE</span>
 	</a></li>
+	
+	<!-- Nav Item - Book -->
+	<li class="nav-item"><a class="nav-link"
+		href="<c:url value="/he-thong/v$database"></c:url>"> <i
+			class="fas fa-fw fa-book"></i> <span>V$DATABASE</span>
+	</a></li>
 
 	<!-- Nav Item - Book -->
 	<li class="nav-item"><a class="nav-link"

@@ -26,7 +26,7 @@ public class DatabaseDAO {
 	
 	public Database GetDatabase(BigDecimal dbid) {
 		String query = "Select * from v$database where dbid = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { dbid }, new DatabaseMapper(false));
+		return jdbcTemplate.queryForObject(query, new Object[] { dbid }, new DatabaseMapper(true));
 	}
 	
 	public boolean IsExistDatabaseByDbid(BigDecimal dbid) {

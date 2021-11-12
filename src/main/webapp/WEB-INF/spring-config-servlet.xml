@@ -12,7 +12,7 @@
 	<context:component-scan base-package="Ecommerce"></context:component-scan>
 
 	<context:annotation-config />
-	
+
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/views/"></property>
@@ -28,7 +28,7 @@
 		<property name="username" value="ThuongMaiDienTu_Web"></property>
 		<property name="password" value="TMDT_123456789"></property>
 	</bean>
-	
+
 	<bean id="dataSource2"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
@@ -43,7 +43,7 @@
 		class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	
+
 	<bean id="jdbcTemplate2"
 		class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource2"></property>
@@ -55,6 +55,20 @@
 	</bean>
 
 	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</value>
+						<value>text/csv</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
 	<mvc:resources location="/assets/" mapping="/assets/**" />
 	<mvc:resources location="/file-upload/"
 		mapping="/file-upload/**" />
